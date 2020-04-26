@@ -1,0 +1,3 @@
+  <button class="container" open-type="{{openType}}" bind:getuserinfo="getuserinfo" plain="true">
+    <slot name="other"></slot>
+  </button>

@@ -1,0 +1,17 @@
+<!--pages/classic/classic.wxml-->
+<view class="container">
+  <view class="header">
+    <episode class="episode" index="{{classic.index}}" />
+    <!-- 喜欢 分享 -->
+    <view class="like-container">
+      <like class="like" bind:like="onLike" like="{{likeStatus}}" count="{{likeCount}}" />
+      <btn class="share-btn" open-type="share">
+        <image class="share" slot="other" src="/images/icon/share.png" />
+      </btn>
+    </view>
+  </view>
+  <movie hidden="{{classic.type !== 100}}" img="{{classic.image}}" content="{{classic.content}}" />
+  <music wx:if="{{classic.type == 200}}" src="{{classic.url}}" img="{{classic.image}}" content="{{classic.content}}" />
+  <essay hidden="{{classic.type !== 300}}" img="{{classic.image}}" content="{{classic.content}}" />
+  <navi bind:left="onNext" bind:right="onPrevious" class="navi" first="{{first}}" latest="{{latest}}" title="{{classic.title}}" />
+</view>

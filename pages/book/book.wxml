@@ -1,0 +1,32 @@
+<!--pages/book/book.wxml-->
+<view class="container" wx:if="{{!searching}}">
+  <!-- 头部搜索框 -->
+  <view class="header">
+    <view class='box' bind:tap="onSearching" >
+      <image src="/images/icon/search.png" />
+      <text>搜索书籍</text>
+    </view>
+  </view>
+  <!-- 精选标签 与 书籍-->
+    <view class="sub-container">
+        <image class="head-img" src="/images/book/quality.png" />
+        <view class="books-container">
+            <block wx:key="id" wx:for="{{books}}">
+                <book  book="{{item}}" />
+            </block>
+        </view>
+    </view>
+    <!-- 搜索书籍组件 -->
+</view>
+<search more="{{more}}"  
+dataArray="{{dataArray}}" 
+hotWords="{{hotWords}}" 
+historyWords="{{historyWords}}" 
+loadingCenter="{{loadingCenter}}"
+noneResult="{{noneResult}}"
+loading="{{loading}}"
+bind:search="search"   
+bind:cancel="onCancel" 
+bind:loadMore="loadMore"
+bind:delete="onDelete"
+wx:if="{{searching}}" /> 

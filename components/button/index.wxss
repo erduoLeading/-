@@ -1,0 +1,7 @@
+/* components/button/index.wxss */
+.container {
+  display: inline-flex;
+  border-radius: 50%;
+  padding: 0 !important;
+  border: none !important;
+}

@@ -1,0 +1,91 @@
+<!--pages/bookDetail/bookDetail.wxml-->
+<wxs src="../../utils/filter.wxs" module="utils" />
+<view class="container">
+  <!-- 书籍封面 -->
+  <view class="head">
+    <image src="{{book.image}}"></image>
+    <text class='title'>{{book.title}}</text>
+    <text class='author'>{{book.author}}</text>
+  </view>
+  <!-- 短评 -->
+  <view class="sub-container">
+    <text class="headline">短评</text>
+    <text class="shadow" wx:if="{{comments==false}}">还没有短评</text>
+    <view class="comment-container">
+      <block wx:for="{{utils.limit(comments,15)}}" wx:key="id">
+        <tag tag-class="{{tool.highlight(index)}}" text="{{item.content}}">
+          <text slot="after">+{{item.nums}}</text>
+        </tag>
+      </block>
+    </view>
+  </view>
+  <!-- 简介 -->
+  <view class="sub-container">
+    <text class="headline">内容简介</text>
+    <text class="content" decode="{{true}}">{{utils.format(book.summary)}}</text>
+  </view>
+  <!-- 具体信息 -->
+  <view class="sub-container">
+    <text class="headline">书本信息</text>
+    <view class="detail-container">
+      <view class="vertical description">
+        <text>出版社</text>
+        <text>出版年</text>
+        <text>页数</text>
+        <text>定价</text>
+        <text>装帧</text>
+      </view>
+      <view class="vertical">
+        <text>{{book.publisher}}</text>
+        <text>{{book.pubdate}}</text>
+        <text>{{book.pages}}</text>
+        <text>{{book.price}}</text>
+        <text>{{book.binding}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 短评的点击入口 -->
+  <view class="post-container" hidden="{{posting}}">
+    <view bind:tap="onFakePost" class="post-fake">
+      <text>输入短评</text>
+    </view>
+    
+    <view class="like-container">
+      <like bind:like="onLike" class="like" like="{{likeStatus}}" count="{{likeCount}}" />
+    </view>
+  </view>
+  <!-- 输入短评的实际入口 -->
+  <view class="posting-container" wx:if="{{posting}}">
+    <view class="post-header">
+        <text wx:if="{{comments.length}}">仅可点击标签+1</text>
+        <text wx:else>暂无短评</text>
+        <text bind:tap="onCancel" class="cancel">取消</text>
+    </view>
+    <!-- 默认显示的3个短评 -->
+    <view class="comment-container">
+        <block wx:for="{{utils.limit(comments,3)}}" wx:key="content">
+            <tag bind:tapping="onPost" tag-class="{{tool.highlight(index)}}" text="{{item.content}}">
+                <text class="num" slot="after">{{'+'+item.nums}}</text>
+            </tag>
+        </block>
+    </view>
+    <!-- 短评的input输入框 -->
+    <input bind:confirm="onPost" class="post" placeholder='短评最多12个字'></input>
+</view>
+</view>
+<!-- 遮罩层 -->
+<mask wx:if="{{posting}}"/>
+<wxs module="tool">
+  var highlight = function(index){
+    if (index == 0 ) {
+      return 'ex-tag1'
+    }
+    if (index == 1 ) {
+      return 'ex-tag2'
+    }
+    return ''
+  }
+  module.exports = {
+    highlight: highlight
+  }
+</wxs>

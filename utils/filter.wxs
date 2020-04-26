@@ -1,0 +1,16 @@
+var format = function(text){
+  //undefined
+  if (!text) return
+  // wxs
+  var reg = getRegExp('\\\\n','g')
+  return text.replace(reg, '\n&nbsp;&nbsp;')
+}
+var limit = function(arr, num) {
+  if (!arr) return
+  return arr.slice(0,num)
+}
+
+module.exports = {
+  format: format,
+  limit: limit
+}

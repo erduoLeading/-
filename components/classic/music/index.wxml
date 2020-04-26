@@ -1,0 +1,10 @@
+<view hidden="{{hidden}}" class="container">
+  <!-- 封面 -->
+  <image class="classic-img {{playing? 'rotation' : ''}}" src="{{img}}"></image>
+  <!-- 播放图标 -->
+  <image bind:tap="onPlay" class="classic-player" src="{{playing? pauseSrc : playSrc}}"></image>
+  <!-- 文字logo -->
+  <image class="classic-tag" src="images/music@tag.png"></image>
+  <!-- 文本内容 -->
+  <text>{{content}}</text>
+</view>
